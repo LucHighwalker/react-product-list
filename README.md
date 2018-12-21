@@ -1,44 +1,124 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Product List
 
-## Available Scripts
+This is a starter project for a react challenge. The goal is to create a page that displays a list of products and a list of categories for those products. Clicking one of the category buttons should filter the list of products display to only those products in that category. 
 
-In the project directory, you can run:
+Use components to your advantage for this assignment. Whenever possible make a component to simplify your work. 
 
-### `npm start`
+The starter project provides a `categories` array and an `inventory` array in `inventory.js`. You can import these into any module with: 
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`import inventory, { categories } from './inventory'`
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- `categories` is an Array of category name Strings
+- `inventory` is an Array of Objects with the following properties
+  - `id` a unique number id
+  - `name` a String name of product
+  - `description` a String description of product
+  - `price` a _String_ price with two decimal places
+  - `category` a String category name
 
-### `npm test`
+For example: 
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```JS
+{
+  'id':1,
+  'name':'Duobam',
+  'description':'Implemented even-keeled info-mediaries',
+  'price':'7.77',
+  'category':'Outdoors'
+}
+```
 
-### `npm run build`
+## How it should work
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Besides just listing categories and products you also need to add some functionality. 
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Clicking a category should display only products in that category in the list of products. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Getting functional
 
-### `npm run eject`
+Besides using React you will also explore and practice functional programming concepts with `Array.map()`, `Array.filter()`, and `Array.reduce`. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+You will use [`Array.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) to transform these Objects into a JSX/Components to be displayed by React. 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You will use `Array.filter()` to filter ther list of products display 
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This project was bootstrapped with Create React App see the notes [here](create-react-app-notes.md). 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Challenges 
 
-## Learn More
+**Getting Started**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Fork this Repo
+1. `npm install` to install dependencies
+1. `npm start` to run the project at [http://localhost:3000](http://localhost:3000)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Coding Challenges**
+
+Level 1 challenge 
+
+Display the categories and products. 
+
+1. List all of the categories at the top of the page. 
+  - Display the categories as buttons. 
+  - Use `Array.map()` to transform the `category` array into an array of JSX/Components
+  - You can import categories into any module with `import { categories } from './inventory'`
+1. List all of products at the bottom of the page. 
+  - Each project should display with it's name, category, and price. How these are displayed is up to you. 
+    - If you add a class name to a JSX element use `className` in place of `class` for example `<div className="product">`
+  - You can import the inventory Array into a module with `import inventory from './inventory'`
+  - `inventory` is an Array of Objects with properties: id, name, description, price, and category. See the notes above for more detail. 
+
+Level 2 Challenge 
+
+Add some interaction and functionality.
+
+1. Clicking a category should display only products in that category. Do this by:
+  - The parent component, that is the component that is parent to both the product list and the category list, should define the current category on it's state
+    - Define state as an object in the constructor
+    - Set a property on the state object, something like: `currentCategory`
+  - Add an `onClick` handler for each category button. This should: 
+    - Pass it's category String/name to the handler.
+    - Set `currentCategory` on state with `this.setState({ currentCategory: newCategory })` or something similar. 
+  - Use `Array.filter()` to display only products in `inventory` where the category matches. 
+
+Level 3 Challenges 
+
+Use components! Whenever possible you should use a component. React uses a component architecture. The component architectrure is a really good thing it makes your projects easier to manage, keeps your code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself), and makes your code more portable. 
+
+1. Make a component that is a category button. 
+  - Define this in a module/JS file. Something like: `category-button.js`
+  - Be sure to export this. Something like: `export default CategoryButton`
+  - Set the label and click function as props, something like: `<CategoryButton label={cat} onClick={() => clickCategory(name) } />`
+1. Define a component that is a product. This will display a 
+
+Level 4 Challenges 
+
+Unless you went rogue, the page is probably looking pretty bland. Better add some styles. 
+
+1. Style the category buttons. Make these look like buttons. Make them look like something people will want to click on. 
+  - Use Flex box to put them all in a row. It's okay if they wrap, there are many categories. 
+1. Style the products in the list. 
+  - Use CSS Grid. You can just set the number of columns with: `grid-template-columns` this should be enough to get all your pro**ducks** in a row so to speak. 
+
+Level 5 Challenges 
+
+Handling the details. If you've got the items above worked out you'll realize the interface is not very satisfying. You can make it better! 
+
+1. Display All category
+  - Add one more button to the list of category buttons. It's label should "All".
+  - Clicking this button should display all products.
+2. We need to know which category is currently selected. The buttons should reflect. 
+  - Define a style to make the currently selected category stand apart from the other buttons.
+  - When generating the category elements check the category name against `this.currentCategory` if the names match assign a class to that element, something like `selected-category` remember to use `className` not `class`!
+  - You'll need to take into account that the "All" button is it's own category and this category should display all the products! 
+
+Level 6 Challenges 
+
+Okay so you did all of the other challenges and you need something more to do, good for you! 
+
+1. Use `Array.reduce()` to get the sum of all of the prices for all Products. 
+  - Remember the prices are stored as Strings you'll need to convert these to numbers. Something like: `Number(item.price)` should work.  
+  - Display this somewhere on the page. If you got this far I don't need to add too much explaination here. 
+2. Using `Array.reduce()` again, sum the total for currently selected products. In other the sum of all the prices for the products in the currently selected category. 
+3. Use `Array.reduce()` to count the number of products in each category. 
+  - Display count for each category as "badge" next to the category label in each category button. 
