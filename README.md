@@ -1,6 +1,6 @@
 # React Product List
 
-This is a starter project for a react challenge. The goal is to create a page that displays a list of products and a list of categories for those products. Clicking one of the category buttons should filter the list of products display to only those products in that category. 
+This is a starter project for a React challenge. The goal is to create a page that displays a list of **products** and a list of **categories** for those products. Clicking one of the category buttons should filter the list of products display to only display products in that category. 
 
 Use components to your advantage for this assignment. Whenever possible make a component to simplify your work. 
 
@@ -8,15 +8,15 @@ The starter project provides a `categories` array and an `inventory` array in `i
 
 `import inventory, { categories } from './inventory'`
 
-- `categories` is an Array of category name Strings
-- `inventory` is an Array of Objects with the following properties
-  - `id` a unique number id
-  - `name` a String name of product
-  - `description` a String description of product
-  - `price` a _String_ price with two decimal places
-  - `category` a String category name
+- `categories`: `[String]` an Array of category name Strings
+- `inventory`: `[Object]` an Array of Objects with the following properties
+  - `id`: `Number` a unique number id
+  - `name`: `String` a String name of product
+  - `description`: `String` a String description of product
+  - `price`: `String` a _String_ price with two decimal places
+  - `category`: `String` a String category name
 
-For example: 
+For example, the first product in the Array looks like this: 
 
 ```JS
 {
@@ -28,60 +28,73 @@ For example:
 }
 ```
 
-## How it should work
-
-Besides just listing categories and products you also need to add some functionality. 
-
-Clicking a category should display only products in that category in the list of products. 
-
 ## Getting functional
 
 Besides using React you will also explore and practice functional programming concepts with `Array.map()`, `Array.filter()`, and `Array.reduce`. 
 
-You will use [`Array.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) to transform these Objects into a JSX/Components to be displayed by React. 
+You will use [`Array.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) to transform the inventory Objects into a JSX/Components to be displayed by React. 
 
-You will use `Array.filter()` to filter ther list of products display 
+You will use [`Array.filter()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) to filter the list of products displayed by category.
 
-This project was bootstrapped with Create React App see the notes [here](create-react-app-notes.md). 
+The stretch challenges use [`Array.reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce).
 
 ## Challenges 
 
+Your goal is to follow the steps below and solve the challenges. 
+
+You will fork this repo and start working on your fork. 
+
+**You must commit each time you sit down to work on this project!**
+
+This challenge should take about 3 hours. Be sure to plan that amount of time to spend on the challenges here. 
+
 **Getting Started**
 
-1. Fork this Repo
+1. Fork this Repo.
+1. Post a link to the progress tracker for class.
 1. `npm install` to install dependencies
 1. `npm start` to run the project at [http://localhost:3000](http://localhost:3000)
 
-**Coding Challenges**
+This project was bootstrapped with Create React App see the notes [here](create-react-app-notes.md) for more information. 
 
-Level 1 challenge 
+## Coding Challenges
 
-Display the categories and products. 
+**Level 1 challenge** 
 
-1. List all of the categories at the top of the page. 
+Display the categories and products.
+
+1. Challenge: List all of the categories at the top of the page. 
   - Display the categories as buttons. 
   - Use `Array.map()` to transform the `category` array into an array of JSX/Components
   - You can import categories into any module with `import { categories } from './inventory'`
-1. List all of products at the bottom of the page. 
-  - Each project should display with it's name, category, and price. How these are displayed is up to you. 
-    - If you add a class name to a JSX element use `className` in place of `class` for example `<div className="product">`
-  - You can import the inventory Array into a module with `import inventory from './inventory'`
-  - `inventory` is an Array of Objects with properties: id, name, description, price, and category. See the notes above for more detail. 
+1. Challenge: List all of products below the categories. 
+  - Each Product should display with it's name, category, and price. How these are displayed is up to you. 
+    - If you add a class name to a JSX element use `className` in place of `class` for example `<div className="product">`. See the documentation for [`className`](https://reactjs.org/docs/faq-styling.html) for more information.
+  - You can import the inventory Array into any module with `import inventory from './inventory'`.
+  - `inventory` is an Array of Objects with properties: id, name, description, price, and category. See the notes above for more details. 
 
-Level 2 Challenge 
 
-Add some interaction and functionality.
 
-1. Clicking a category should display only products in that category. Do this by:
-  - The parent component, that is the component that is parent to both the product list and the category list, should define the current category on it's state
+**Level 2 Challenge**
+
+Add some interaction and functionality. The goal here is to click on a category button to filter the list of products so only products in the chosen category are displayed. 
+
+1. Challenge: Clicking a category should display only products in that category.
+  - The parent component, that is the component that is parent to both the product list and the category list, should define the current category on `this.state`.
     - Define state as an object in the constructor
     - Set a property on the state object, something like: `currentCategory`
+    - Give it a sensible default value: `this.state = { currentCategory: null }`
   - Add an `onClick` handler for each category button. This should: 
-    - Pass it's category String/name to the handler.
+    - Pass the category String/name of the button to the handler.
     - Set `currentCategory` on state with `this.setState({ currentCategory: newCategory })` or something similar. 
-  - Use `Array.filter()` to display only products in `inventory` where the category matches. 
+  - Use `Array.filter()` to display only products in `inventory` where the category matches. Something like: 
+  ```js
+  inventory.filter((item) => {
+    return item.category === this.state.currentCategory || this.state.currentCategory === null
+  })
+  ```
 
-Level 3 Challenges 
+**Level 3 Challenges** 
 
 Use components! Whenever possible you should use a component. React uses a component architecture. The component architectrure is a really good thing it makes your projects easier to manage, keeps your code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself), and makes your code more portable. 
 
