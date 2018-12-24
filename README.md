@@ -1,4 +1,4 @@
-# React Product List
+# React Product List Challenge
 
 This is a starter project for a React challenge. The goal is to create a page that displays a list of **products** and a list of **categories** for those products. Clicking one of the category buttons should filter the list of products display to only display products in that category. 
 
@@ -55,7 +55,9 @@ This challenge should take about 3 hours. Be sure to plan that amount of time to
 1. `npm install` to install dependencies
 1. `npm start` to run the project at [http://localhost:3000](http://localhost:3000)
 
-This project was bootstrapped with Create React App see the notes [here](create-react-app-notes.md) for more information. 
+From here as you work you should see changes refresh in the browser as you save files. If there is an error you will see this in the browser.
+
+This project was bootstrapped with Create React App see the notes [here](notes/create-react-app-notes.md) for more information. 
 
 ## Coding Challenges
 
@@ -102,18 +104,51 @@ Use components! Whenever possible you should use a component. React uses a compo
   - Define this in a module/JS file. Something like: `category-button.js`
   - Be sure to export this. Something like: `export default CategoryButton`
   - Set the label and click function as props, something like: `<CategoryButton label={cat} onClick={() => clickCategory(name) } />`
-1. Define a component that is a product. This will display a 
+1. Define a component that is a product.
+  - The product component should take in it's id, name, description, and price as props. Alternately it could take an object with these properties. 
+  - The product component should display these bits of information in a reasonable way. 
 
-Level 4 Challenges 
+The category button component might look like this. These are inclomplete! You'll need to retool these to fit your project. 
 
-Unless you went rogue, the page is probably looking pretty bland. Better add some styles. 
+```JS
+import { Component } from 'react'
 
-1. Style the category buttons. Make these look like buttons. Make them look like something people will want to click on. 
+class CategoryButton extends Component {
+  render() {
+    return <button onClick={this.props.onClick}>{this.props.label}</button>
+  }
+}
+```
+
+The product component might look like this:
+
+```JS
+import { Component } from 'react'
+
+class Product extends Component {
+  render() {
+    return (
+      <div>
+        <h1>{this.props.name}</h1>
+        <p>{this.props.name}</p>
+        <p>${this.props.price}</p>
+      </div>
+    )
+  }
+}
+```
+
+
+**Level 4 Challenges**
+
+Unless you went rogue, the page is probably looking pretty bland. Better add some styles! 
+
+1. Style the category buttons. Make them look like something people will want to click on. 
   - Use Flex box to put them all in a row. It's okay if they wrap, there are many categories. 
 1. Style the products in the list. 
   - Use CSS Grid. You can just set the number of columns with: `grid-template-columns` this should be enough to get all your pro**ducks** in a row so to speak. 
 
-Level 5 Challenges 
+**Level 5 Challenges**
 
 Handling the details. If you've got the items above worked out you'll realize the interface is not very satisfying. You can make it better! 
 
@@ -135,3 +170,13 @@ Okay so you did all of the other challenges and you need something more to do, g
 2. Using `Array.reduce()` again, sum the total for currently selected products. In other the sum of all the prices for the products in the currently selected category. 
 3. Use `Array.reduce()` to count the number of products in each category. 
   - Display count for each category as "badge" next to the category label in each category button. 
+
+## Some Visuals
+
+Some people like pictures. Here are a few images showing what the project might look like when you are finished, with some notes. 
+
+![picture-1](notes/picture-1.png)
+
+![picture-2](notes/picture-2.png)
+
+![picture-3](notes/picture-3.png)
