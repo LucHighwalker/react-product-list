@@ -9,6 +9,7 @@
     cursor: pointer;
     transform: scale(1, 1);
     transition: all 0.5s ease;
+    box-shadow: 1px 1px 10px 1px grey;
 }
 
 .button:hover {
@@ -18,9 +19,11 @@
 .button:active {
     background-color: #015d5d;
     transform: scale(0.8, 0.8);
+    box-shadow: 0 0 5px 0 grey;
 }
 
 .button.active {
     background-color: #015d5d;
     transform: scale(1.1, 1.1);
+    box-shadow: 2px 2px 20px 1px grey;
 }

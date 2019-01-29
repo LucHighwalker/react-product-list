@@ -54,8 +54,8 @@ class App extends Component {
         }
         return selected;
       })
-      .map(({ id, name, price }) => (
-        <Item key={id} name={name} price={price} />
+      .map(({ id, name, price, description }) => (
+        <Item key={id} name={name} price={price} desc={description} />
       ));
   }
 
