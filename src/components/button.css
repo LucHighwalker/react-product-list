@@ -1,0 +1,26 @@
+.button {
+    background-color: teal;
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    outline: none;
+    border-radius: 10px;
+    border-style: none;
+    cursor: pointer;
+    transform: scale(1, 1);
+    transition: all 0.5s ease;
+}
+
+.button:hover {
+    background-color: #03aaaa;
+}
+
+.button:active {
+    background-color: #015d5d;
+    transform: scale(0.8, 0.8);
+}
+
+.button.active {
+    background-color: #015d5d;
+    transform: scale(1.2, 1.2);
+}

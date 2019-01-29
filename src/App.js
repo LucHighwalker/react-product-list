@@ -11,10 +11,18 @@ class App extends React.Component {
     currentCat: 'All'
   };
 
+  buttonClasses(cat) {
+    return cat === this.state.currentCat ? 'button active' : 'button';
+  }
+
   getCategories() {
     return categories.map(cat => (
       <span key={cat}>
-        <Button value={cat} onClick={c => this.changeCategory(c)} />
+        <Button
+          value={cat}
+          classes={this.buttonClasses(cat)}
+          onClick={c => this.changeCategory(c)}
+        />
       </span>
     ));
   }
@@ -43,8 +51,8 @@ class App extends React.Component {
         <h1>current category is {this.state.currentCat}</h1>
 
         <div>
-          <span key='All'>
-            <Button value='All' onClick={c => this.changeCategory(c)} />
+          <span key="All">
+            <Button value="All" classes={this.buttonClasses("All")} onClick={c => this.changeCategory(c)} />
           </span>
           {this.getCategories()}
         </div>
