@@ -7,30 +7,47 @@ import Item from './components/item';
 import './App.css';
 
 class App extends React.Component {
+  state = {
+    currentCat: 'All'
+  };
+
   getCategories() {
     return categories.map(cat => (
       <span key={cat}>
-        <Button value={cat} />
+        <Button value={cat} onClick={c => this.changeCategory(c)} />
       </span>
     ));
   }
 
   getInventory() {
-    return inventory.map(({id, name, price}) => (
-      <Item 
-        key={id}
-        name={name}
-        price={price}
-      />
-    ));
+    return inventory
+      .filter(
+        item =>
+          item.category === this.state.currentCat ||
+          this.state.currentCat === 'All'
+      )
+      .map(({ id, name, price }) => (
+        <Item key={id} name={name} price={price} />
+      ));
+  }
+
+  changeCategory(cat) {
+    this.setState({
+      currentCat: cat
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <h1>Show products here</h1>
+        <h1>current category is {this.state.currentCat}</h1>
 
-        <div>{this.getCategories()}</div>
+        <div>
+          <span key='All'>
+            <Button value='All' onClick={c => this.changeCategory(c)} />
+          </span>
+          {this.getCategories()}
+        </div>
 
         <div>{this.getInventory()}</div>
       </div>
