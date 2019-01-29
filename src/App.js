@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import inventory, { categories } from './inventory';
+
+import Button from './components/button';
+import Item from './components/item';
+
 import './App.css';
 
-class App extends Component {
+class App extends React.Component {
   getCategories() {
     return categories.map(cat => (
       <span key={cat}>
-        <button>{cat}</button>
+        <Button value={cat} />
       </span>
     ));
   }
 
   getInventory() {
-    return inventory.map(item => (
-      <div key={item.id}>
-        <h1>{item.name}</h1>
-        <p>{item.price}</p>
-      </div>
+    return inventory.map(({id, name, price}) => (
+      <Item 
+        key={id}
+        name={name}
+        price={price}
+      />
     ));
   }
 
