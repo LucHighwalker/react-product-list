@@ -6,13 +6,25 @@ import Item from './components/item';
 
 import './App.css';
 
-class App extends React.Component {
+class App extends Component {
   state = {
-    currentCat: 'All'
+    currentCat: []
   };
 
   buttonClasses(cat) {
-    return cat === this.state.currentCat ? 'button active' : 'button';
+    let active = false;
+
+    this.state.currentCat.forEach(c => {
+      if (c === cat) {
+        active = true;
+      }
+    });
+
+    return active ? 'button active' : 'button';
+  }
+
+  allButtonClasses() {
+    return this.state.currentCat.length === 0 ? 'button active' : 'button';
   }
 
   getCategories() {
@@ -29,30 +41,60 @@ class App extends React.Component {
 
   getInventory() {
     return inventory
-      .filter(
-        item =>
-          item.category === this.state.currentCat ||
-          this.state.currentCat === 'All'
-      )
+      .filter(item => {
+        let selected = false;
+        if (this.state.currentCat.length === 0) {
+          selected = true;
+        } else {
+          this.state.currentCat.forEach(cat => {
+            if (cat === item.category) {
+              selected = true;
+            }
+          });
+        }
+        return selected;
+      })
       .map(({ id, name, price }) => (
         <Item key={id} name={name} price={price} />
       ));
   }
 
   changeCategory(cat) {
+    let current = this.state.currentCat;
+    let found = false;
+
+    if (cat !== 'All') {
+      for (let i = 0; i < current.length; i++) {
+        if (current[i] === cat) {
+          found = true;
+          current.splice(i, 1);
+        }
+      }
+
+      if (!found) {
+        current.push(cat);
+      }
+    } else {
+      current = [];
+    }
+
     this.setState({
-      currentCat: cat
+      currentCat: current
     });
   }
 
   render() {
     return (
       <div className="App">
-        <h1>current category is {this.state.currentCat}</h1>
+        <h1>Select Categories</h1>
 
         <div>
           <span key="All">
-            <Button value="All" classes={this.buttonClasses("All")} onClick={c => this.changeCategory(c)} />
+            <Button
+              value="All"
+              classes={this.allButtonClasses()}
+              onClick={c => this.changeCategory(c)}
+            />
           </span>
           {this.getCategories()}
         </div>
