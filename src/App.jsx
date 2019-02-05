@@ -8,24 +8,8 @@ import './App.css';
 
 class App extends Component {
   state = {
-    currentCat: []
+    currentCat: [],
   };
-
-  buttonClasses(cat) {
-    let active = false;
-
-    this.state.currentCat.forEach(c => {
-      if (c === cat) {
-        active = true;
-      }
-    });
-
-    return active ? 'button active' : 'button';
-  }
-
-  allButtonClasses() {
-    return this.state.currentCat.length === 0 ? 'button active' : 'button';
-  }
 
   getCategories() {
     return categories.map(cat => (
@@ -40,13 +24,15 @@ class App extends Component {
   }
 
   getInventory() {
+    const { currentCat } = this.state;
+
     return inventory
-      .filter(item => {
+      .filter((item) => {
         let selected = false;
-        if (this.state.currentCat.length === 0) {
+        if (currentCat.length === 0) {
           selected = true;
         } else {
-          this.state.currentCat.forEach(cat => {
+          currentCat.forEach((cat) => {
             if (cat === item.category) {
               selected = true;
             }
@@ -54,32 +40,52 @@ class App extends Component {
         }
         return selected;
       })
-      .map(({ id, name, price, description }) => (
+      .map(({
+        id, name, price, description,
+      }) => (
         <Item key={id} name={name} price={price} desc={description} />
       ));
   }
 
+  buttonClasses(cat) {
+    let active = false;
+    const { currentCat } = this.state;
+
+    currentCat.forEach((c) => {
+      if (c === cat) {
+        active = true;
+      }
+    });
+
+    return active ? 'button active' : 'button';
+  }
+
+  allButtonClasses() {
+    const { currentCat } = this.state;
+    return currentCat.length === 0 ? 'button active' : 'button';
+  }
+
   changeCategory(cat) {
-    let current = this.state.currentCat;
+    let { currentCat } = this.state;
     let found = false;
 
     if (cat !== 'All') {
-      for (let i = 0; i < current.length; i++) {
-        if (current[i] === cat) {
+      for (let i = 0; i < currentCat.length; i += 1) {
+        if (currentCat[i] === cat) {
           found = true;
-          current.splice(i, 1);
+          currentCat.splice(i, 1);
         }
       }
 
       if (!found) {
-        current.push(cat);
+        currentCat.push(cat);
       }
     } else {
-      current = [];
+      currentCat = [];
     }
 
     this.setState({
-      currentCat: current
+      currentCat,
     });
   }
 
